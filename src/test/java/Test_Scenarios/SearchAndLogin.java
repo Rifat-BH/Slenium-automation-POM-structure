@@ -53,7 +53,7 @@ public class SearchAndLogin {
     public void testAddEmployee() throws InterruptedException {
         addEmployee = new AddEmployee(driver);
         addEmployee.ClickToAddEmployee();
-        addEmployee.userDetails("Admin", "Ranga  Akunuri", "Enabled", "rifat2","123", "123"); //provide user type
+        addEmployee.userDetails("Admin", "Ranga  Akunuri", "Enabled", "rifat03","ABCxyz#123", "ABCxyz#123"); //provide user type
         Thread.sleep(1000);
     }
 
