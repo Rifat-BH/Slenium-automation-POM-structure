@@ -3,6 +3,7 @@ package Test_Scenarios;
 import Objects.AddEmployee;
 import Objects.GoogleSearchOrangeHRM;
 import Objects.LoginOrangeHRM;
+import Objects.RemoveEmployee;
 import com.sun.jdi.ThreadGroupReference;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import net.bytebuddy.build.Plugin;
@@ -31,18 +32,19 @@ public class SearchAndLogin {
         driver.manage().window().maximize();
     }
 
-//    @Test(priority = 1)
-//    public void searchOperation() throws InterruptedException {
-//        googleSearch = new GoogleSearchOrangeHRM(driver);
-//        googleSearch.searchGoogle("orangehrm demo");
-//        Thread.sleep(1000);
-//    }
-//    @Test (priority = 2)
-//    public void accessOrangeHRM() throws InterruptedException {
-//        googleSearch = new GoogleSearchOrangeHRM(driver);
-//        googleSearch.clickOrangeHRM();
-//        Thread.sleep(3000);
-//    }
+    @Test(priority = 1)
+    public void searchOperation() throws InterruptedException {
+        googleSearch = new GoogleSearchOrangeHRM(driver);
+        googleSearch.searchGoogle("orangehrm demo");
+        Thread.sleep(1000);
+    }
+    @Test (priority = 2)
+    public void accessOrangeHRM() throws InterruptedException {
+        googleSearch = new GoogleSearchOrangeHRM(driver);
+        googleSearch.clickOrangeHRM();
+        Thread.sleep(3000);
+    }
+
     @Test (priority = 3)
     public void loginOrangeHRM() throws InterruptedException {
         LoginOrangeHRM orangeHRM = new LoginOrangeHRM(driver);
@@ -55,6 +57,14 @@ public class SearchAndLogin {
         addEmployee.ClickToAddEmployee();
         addEmployee.userDetails("Admin", "Ranga  Akunuri", "Enabled", "rifat03","ABCxyz#123", "ABCxyz#123"); //provide user type
         Thread.sleep(1000);
+    }
+    @Test (priority = 5)
+    public void removeEmployeeTest() throws InterruptedException {
+        RemoveEmployee removeEmployee = new RemoveEmployee(driver);
+        String employeeName = "rifat03";
+        removeEmployee.searchEmployee(employeeName);
+        Thread.sleep(1000);
+        removeEmployee.removeEmployeeFunc(employeeName);
     }
 
     @AfterTest
