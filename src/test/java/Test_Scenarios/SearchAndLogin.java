@@ -14,8 +14,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import utils.UserDetailsFromExcel;
 
 import javax.swing.text.html.HTMLDocument;
+import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class SearchAndLogin {
@@ -52,10 +55,28 @@ public class SearchAndLogin {
         Thread.sleep(1000);
     }
     @Test (priority = 4)
-    public void testAddEmployee() throws InterruptedException {
+    public void testAddEmployee() throws InterruptedException, IOException {
         addEmployee = new AddEmployee(driver);
         addEmployee.ClickToAddEmployee();
-        addEmployee.userDetails("Admin", "Ranga  Akunuri", "Enabled", "rifat03","ABCxyz#123", "ABCxyz#123"); //provide user type
+        String filePath = "/home/upay/Documents/Automation/OrangeHRM_Automation/TestData/OrangeHRMuserdetails.xlsx";
+        String sheetName = "Sheet1";
+
+        List<List<String>> userDetailsList = UserDetailsFromExcel.getUserDetails(filePath,sheetName);
+
+        for(List<String>userDetails : userDetailsList){
+            addEmployee.ClickToAddEmployee();
+            String userType = userDetails.get(0);
+            String employeeName = userDetails.get(1);
+            String status = userDetails.get(2);
+            String username = userDetails.get(3);
+            String password = userDetails.get(4);
+            String confirmPassword = userDetails.get(5);
+            addEmployee.userDetails(userType, employeeName, status, username, password,confirmPassword); //provide user type
+            Thread.sleep(2000);
+        }
+//        addEmployee.userDetails("Admin", "Ranga  Akunuri", "Enabled", "rifat03","ABCxyz#123", "ABCxyz#123"); //provide user type
+
+
         Thread.sleep(1000);
     }
     @Test (priority = 5)
@@ -65,13 +86,14 @@ public class SearchAndLogin {
         removeEmployee.searchEmployee(employeeName);
         Thread.sleep(1000);
         removeEmployee.removeEmployeeFunc(employeeName);
+        Thread.sleep(5000);
     }
 
     @AfterTest
     public void afterTest() throws InterruptedException {
         if (driver != null) {
             Thread.sleep(2000);
-//            driver.quit();
+            driver.quit();
         }
     }
 }

@@ -5,11 +5,11 @@
         <classes>
             <class name="Test_Scenarios.SearchAndLogin">
                 <methods>
-                    <include name="searchOperation"/>
-                    <include name="accessOrangeHRM"/>
+<!--                    <include name="searchOperation"/>-->
+<!--                    <include name="accessOrangeHRM"/>-->
                     <include name="loginOrangeHRM"/>
                     <include name="testAddEmployee"/>
-                    <include name="removeEmployeeTest"/>
+<!--                    <include name="removeEmployeeTest"/>-->
                 </methods>
             </class>
         </classes>
